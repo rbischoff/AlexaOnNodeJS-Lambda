@@ -1,5 +1,4 @@
 const crypto = require('crypto');
-const xor = require('bitwise-xor');
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('hex');
 const config = require('./config');

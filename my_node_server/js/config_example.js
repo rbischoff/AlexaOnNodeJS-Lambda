@@ -45,7 +45,6 @@ var config = {
         https_pin: "pin used when creating self signed cert",
         password: 'anypassword',
         username: 'anyusername'
-
     }
 
 };
