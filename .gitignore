@@ -52,3 +52,4 @@ lamba_code/config.js
 lamba_code/js/serverinfo.js
 .idea/
 my_node_server/node_modules/
+*.zip
