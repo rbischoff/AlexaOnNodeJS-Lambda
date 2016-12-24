@@ -2,7 +2,7 @@ const plex = require('./js/plex');
 const sonybravia = require('./js/routes/sonybravia');
 const tivo = require('./js/tivo');
 const couchpotato = require('./js/couchpotato');
-const secure = require('./encrypt.js');
+const secure = require('./secure.js');
 const config = require('./js/config.js');
 
 //node modules
