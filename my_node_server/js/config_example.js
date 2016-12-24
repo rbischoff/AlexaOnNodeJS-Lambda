@@ -41,7 +41,7 @@ var config = {
         aes_algorithm: "aes-256-gcm",
         aes_secure_key: "generate an openssl hex hey for here",
         https_private_key: fs.readFileSync('/Path/to/key.pem', 'utf8'),
-        https_public_key: fs.readFileSync('/Path/to/cert.pem', 'utf8'),
+        https_cert: fs.readFileSync('/Path/to/cert.pem', 'utf8'),
         https_pin: "pin used when creating self signed cert",
         password: 'anypassword',
         username: 'anyusername'
