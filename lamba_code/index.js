@@ -1,11 +1,15 @@
-var AlexaSkill = require('js/AlexaSkill');
-var express = require('express');
-var request = require('request');
-var http = require('http');
-var serverinfo = require("js/serverinfo");
-var config = require('./config');
+const AlexaSkill = require('js/AlexaSkill');
+const express = require('express');
+const request = require('request');
+const https = require('https');
+const xor = require('bitwise-xor');
+
+const serverinfo = require('./js/serverinfo');
+const config = require('./config');
+const secure = require('./js/encrypt.js');
 
 var APP_ID = config.appid;
+var xored = xor(config.password, config.username);
 
 var Tivo = function () {
     AlexaSkill.call(this, APP_ID);
@@ -158,15 +162,25 @@ Tivo.prototype.intentHandlers = {
 };
 
 function sendCommand(path,header,body,callback) {
+
+    // username & password hash is encrypted each time the fuction is called
+	var encrypted = secure.encrypt(xored);
+	console.log(encrypted);
+	header.phrase = encrypted.content;
+	header.iv = encrypted.iv;
+	header.tag = encrypted.tag;
+
     var opt = {
         host:serverinfo.host,
         port:serverinfo.port,
         path: path,
         method: 'POST',
+        passphrase: config.https_pin,
+        rejectUnauthorized: false,
         headers: header
     };
 
-    var req = http.request(opt, function(res) {
+    var req = https.request(opt, function(res) {
         res.setEncoding('utf8');
         res.on('data', function (chunk) {
             console.log('Response: ' + chunk);
