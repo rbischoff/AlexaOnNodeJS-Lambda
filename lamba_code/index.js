@@ -163,7 +163,7 @@ function sendCommand(path,header,body,callback) {
         port:serverinfo.port,
         path: path,
         method: 'POST',
-        headers: header,
+        headers: header
     };
 
     var req = http.request(opt, function(res) {

@@ -48,7 +48,7 @@ Temporary Items
 
 # Sensitive Data
 my_node_server/js/config.js
-my_node_server/node_modules/*
+lamba_code/config.js
 
 .idea/
 my_node_server/node_modules/
