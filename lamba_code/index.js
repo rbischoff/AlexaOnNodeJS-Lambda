@@ -6,7 +6,7 @@ const xor = require('bitwise-xor');
 
 const serverinfo = require('./js/serverinfo');
 const config = require('./config');
-const secure = require('./js/encrypt.js');
+const secure = require('./js/secure.js');
 
 var APP_ID = config.appid;
 var xored = xor(config.password, config.username);
