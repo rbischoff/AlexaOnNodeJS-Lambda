@@ -1,5 +1,8 @@
 // Rename this file to config.js after making nessecary changes 
 // Please do not push config information to a public repo
+// generate a self signed certificate and private key with
+// # openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+
 const fs = require('fs');
 var config = {
     host: "host ip here",
