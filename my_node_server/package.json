@@ -12,7 +12,7 @@
     "querystring": "^0.2.0",
     "request": "^2.65.0",
     "telnet-client": "^0.2.1",
-    "bitwise-xor": "^0.0.0"
+    "bitwise-xor": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {
