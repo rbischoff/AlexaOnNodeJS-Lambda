@@ -1,15 +1,17 @@
-const AlexaSkill = require('js/AlexaSkill');
+const AlexaSkill = require('./js/AlexaSkill');
 const express = require('express');
 const request = require('request');
 const https = require('https');
 const xor = require('bitwise-xor');
+const net = require('net');
+const dns = require('dns');
 
 const serverinfo = require('./js/serverinfo');
 const config = require('./config');
-const secure = require('./js/secure.js');
+const secure = require('./js/secure');
 
 var APP_ID = config.appid;
-var xored = xor(config.password, config.username);
+
 
 var Tivo = function () {
     AlexaSkill.call(this, APP_ID);
@@ -161,16 +163,31 @@ Tivo.prototype.intentHandlers = {
 
 };
 
+function hostToIP(address){
+    
+    if (!net.isIP(address)){
+        var ip = '';
+        dns.lookup(address, 4, function(err, addr, family){
+            ip = addr;
+        });
+        return ip;
+    }else{
+        return address;
+    }
+}
+
 function sendCommand(path,header,body,callback) {
 
-    // username & password hash is encrypted each time the fuction is called
+    // username & password hash is encrypted each time the function is called
+    var xored = xor(config.password, config.username);
+    console.log(xored);
 	var encrypted = secure.encrypt(xored);
 	console.log(encrypted);
 	header.phrase = encrypted.content;
 	header.iv = encrypted.iv;
 
     var opt = {
-        host:serverinfo.host,
+        host:hostToIP(serverinfo.host),
         port:serverinfo.port,
         path: path,
         method: 'POST',

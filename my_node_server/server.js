@@ -17,12 +17,11 @@ function isUser(req, res, next) {
 	var header = req.headers;
 	var encrypted = {
 		content: header.phrase,
-		tag: header.tag,
 		iv: header.iv
 	};
 
 	if(secure.decrypt(encrypted) == xor(config.username, config.password)){
-		next()
+		next();
 	}else {
 		res.send("Thanks Obama!")
 	}
