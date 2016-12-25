@@ -3,8 +3,6 @@ const express = require('express');
 const request = require('request');
 const https = require('https');
 const xor = require('bitwise-xor');
-const net = require('net');
-const dns = require('dns');
 
 const serverinfo = require('./js/serverinfo');
 const config = require('./config');
@@ -16,6 +14,7 @@ var APP_ID = config.appid;
 var Tivo = function () {
     AlexaSkill.call(this, APP_ID);
 };
+
 
 // Extend AlexaSkill
 Tivo.prototype = Object.create(AlexaSkill.prototype);
@@ -163,19 +162,6 @@ Tivo.prototype.intentHandlers = {
 
 };
 
-function hostToIP(address){
-    
-    if (!net.isIP(address)){
-        var ip = '';
-        dns.lookup(address, 4, function(err, addr, family){
-            ip = addr;
-        });
-        return ip;
-    }else{
-        return address;
-    }
-}
-
 function sendCommand(path,header,body,callback) {
 
     // username & password hash is encrypted each time the function is called
@@ -185,9 +171,9 @@ function sendCommand(path,header,body,callback) {
 	console.log(encrypted);
 	header.phrase = encrypted.content;
 	header.iv = encrypted.iv;
-
+    
     var opt = {
-        host:hostToIP(serverinfo.host),
+        host:serverinfo.host,
         port:serverinfo.port,
         path: path,
         method: 'POST',
