@@ -21,9 +21,11 @@ function isUser(req, res, next) {
 	};
 
 	if(secure.decrypt(encrypted) == xor(config.username, config.password)){
+		console.log("Success");
 		next();
 	}else {
-		res.send('Thanks Obama!')
+		console.log("Failed Attempt");
+		res.send('Thanks Obama!');
 	}
 }
 
