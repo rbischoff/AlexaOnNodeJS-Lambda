@@ -168,7 +168,6 @@ function sendCommand(path,header,body,callback) {
 	console.log(encrypted);
 	header.phrase = encrypted.content;
 	header.iv = encrypted.iv;
-	header.tag = encrypted.tag;
 
     var opt = {
         host:serverinfo.host,
