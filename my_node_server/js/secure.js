@@ -7,7 +7,7 @@ const config = require('./config');
 // message encryption
 function encrypt(text) {
   var iv = crypto.randomBytes(16);
-  var cipher = crypto.createCipheriv(config.aes_algorithm, config.aes_secure_key, iv);
+  var cipher = crypto.createCipheriv(config.secure.aes_algorithm, config.secure.aes_secure_key, iv);
   var encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
   return {
@@ -19,7 +19,7 @@ function encrypt(text) {
 // message decryption
 function decrypt(encrypted) {
   var iv = Buffer(encrypted.iv, 'hex');
-  var decipher = crypto.createDecipheriv(config.aes_algorithm, config.aes_secure_key, iv);
+  var decipher = crypto.createDecipheriv(config.secure.aes_algorithm, config.secure.aes_secure_key, iv);
   var dec = decipher.update(encrypted.content, 'hex', 'utf8');
   dec += decipher.final('utf8');
   return dec;
