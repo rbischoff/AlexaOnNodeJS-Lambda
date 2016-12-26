@@ -53,3 +53,4 @@ lamba_code/js/serverinfo.js
 .idea/
 my_node_server/node_modules/
 *.zip
+lamba_code/ca/cert.pem
