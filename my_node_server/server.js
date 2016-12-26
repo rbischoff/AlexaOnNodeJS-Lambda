@@ -44,11 +44,8 @@ app.get('/', function(req, res) {
 });
 
 var credentials = {
-    secureProtocol: 'SSLv23_method',
     key: config.https_private_key,
-    secureOptions: constants.SSL_OP_NO_SSLv3,
-    cert: config.https_cert, 
-    passphrase: config.https_pin
+    cert: config.https_cert,
 };
 
 //setup secure server and wait for the get request
