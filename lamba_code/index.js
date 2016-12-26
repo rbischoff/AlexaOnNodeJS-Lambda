@@ -171,16 +171,18 @@ function sendCommand(path,header,body,callback) {
 	header.phrase = encrypted.content;
 	header.iv = encrypted.iv;
 
+    var ca = fs.readFileSync('ca/cert.pem', 'utf8');
+    console.log(ca);
     var opt = {
-        //host:serverinfo.host,
         host: '192.168.0.105',
         port:serverinfo.port,
         path: path,
         method: 'POST',
-        secureProtocol: 'SSLv23_method',
-        ca: fs.readFileSync('ca/cert.pem', 'utf8'),
-        passphrase: config.https_pin,
-        headers: header
+        ca: [ca],
+        headers: header,
+        checkServerIdentity: function (host, cert) {
+            return undefined;
+        }
     };
 
     console.log('before request');
