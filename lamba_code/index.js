@@ -166,12 +166,10 @@ function sendCommand(path,header,body,callback) {
 
     // username & password hash is encrypted each time the function is called
     var xored = xor(config.password, config.username);
-    console.log(xored);
 	var encrypted = secure.encrypt(xored);
-	console.log(encrypted);
 	header.phrase = encrypted.content;
 	header.iv = encrypted.iv;
-    
+
     var opt = {
         host:serverinfo.host,
         port:serverinfo.port,
