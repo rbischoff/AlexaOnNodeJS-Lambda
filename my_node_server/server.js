@@ -22,7 +22,7 @@ function isUser(req, res, next) {
 	};
     console.log(encrypted);
 
-	if(secure.decrypt(encrypted) == xor(config.username, config.password)){
+	if(secure.decrypt(encrypted) == xor(config.secure.username, config.secure.password)){
 		console.log("Success");
 		next();
 	}else {
