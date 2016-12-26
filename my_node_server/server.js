@@ -45,8 +45,9 @@ app.get('/', function(req, res) {
 
 var credentials = {
     key: config.https_private_key,
-    cert: config.https_cert,
+    cert: config.https_cert
 };
+console.log(credentials);
 
 //setup secure server and wait for the get request
 var httpsServer = https.createServer(credentials, app);
