@@ -43,6 +43,9 @@ app.use('/cp', couchpotato);
 app.get('/', function(req, res) {
   res.send('API Homepage works');
 });
+app.post('/', function (req, res) {
+    res.send("Post test works!");
+});
 
 var credentials = {
     key: config.secure.https_private_key,
