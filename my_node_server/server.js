@@ -20,7 +20,6 @@ function isUser(req, res, next) {
 		content: header.phrase,
 		iv: header.iv
 	};
-    console.log(encrypted);
 
 	if(secure.decrypt(encrypted) == xor(config.secure.username, config.secure.password)){
 		console.log("Success");
