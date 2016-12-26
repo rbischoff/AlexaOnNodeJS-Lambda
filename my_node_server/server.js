@@ -45,7 +45,8 @@ app.get('/', function(req, res) {
 
 var credentials = {
     key: config.secure.https_private_key,
-    cert: config.secure.https_cert
+    cert: config.secure.https_cert,
+    passphrase: config.secure.https_pin
 };
 console.log(credentials);
 
