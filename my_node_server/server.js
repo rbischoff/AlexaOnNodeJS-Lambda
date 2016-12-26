@@ -43,6 +43,7 @@ app.get('/', function(req, res) {
 });
 
 var credentials = {
+    secureProtocol: 'SSLv23_method',
     key: config.https_private_key, 
     cert: config.https_cert, 
     passphrase: config.https_pin

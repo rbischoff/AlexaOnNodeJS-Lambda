@@ -3,6 +3,7 @@ const express = require('express');
 const request = require('request');
 const https = require('https');
 const xor = require('bitwise-xor');
+const fs = require('fs');
 
 const serverinfo = require('./js/serverinfo');
 const config = require('./config');
@@ -171,17 +172,21 @@ function sendCommand(path,header,body,callback) {
 	header.iv = encrypted.iv;
 
     var opt = {
-        host:serverinfo.host,
+        //host:serverinfo.host,
+        host: '192.168.0.105',
         port:serverinfo.port,
         path: path,
         method: 'POST',
+        secureProtocol: 'SSLv23_method',
+        ca: fs.readFileSync('ca/cert.pem', 'utf8'),
         passphrase: config.https_pin,
-        rejectUnauthorized: false,
         headers: header
     };
 
+    console.log('before request');
     var req = https.request(opt, function(res) {
         res.setEncoding('utf8');
+        console.log('in request');
         res.on('data', function (chunk) {
             console.log('Response: ' + chunk);
             callback(chunk);
@@ -192,6 +197,7 @@ function sendCommand(path,header,body,callback) {
     req.end();
 }
 
+exports.sendCommand = sendCommand;
 // Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
     // Create an instance of the Tivo skill.

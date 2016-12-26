@@ -10,7 +10,6 @@ function encrypt(text) {
   var cipher = crypto.createCipheriv(config.aes_algorithm, config.aes_secure_key, iv);
   var encrypted = cipher.update(text, 'utf8', 'hex');
   encrypted += cipher.final('hex');
-  console.log(encrypted);
   return {
     content: encrypted,
     iv: decoder.end(iv)
