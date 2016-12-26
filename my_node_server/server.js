@@ -1,6 +1,7 @@
 const plex = require('./js/plex');
 const sonybravia = require('./js/routes/sonybravia');
 const tivo = require('./js/tivo');
+const constants = require('constants');
 const couchpotato = require('./js/couchpotato');
 const secure = require('./js/secure.js');
 const config = require('./js/config.js');
@@ -44,7 +45,8 @@ app.get('/', function(req, res) {
 
 var credentials = {
     secureProtocol: 'SSLv23_method',
-    key: config.https_private_key, 
+    key: config.https_private_key,
+    secureOptions: constants.SSL_OP_NO_SSLv3,
     cert: config.https_cert, 
     passphrase: config.https_pin
 };
