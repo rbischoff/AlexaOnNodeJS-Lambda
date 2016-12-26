@@ -48,7 +48,9 @@ var credentials = {
     cert: config.secure.https_cert,
     passphrase: config.secure.https_pin
 };
-console.log(credentials);
+
+// Uncomment this to see if acutal keys are passing
+//console.log(credentials);
 
 //setup secure server and wait for the get request
 var httpsServer = https.createServer(credentials, app);
