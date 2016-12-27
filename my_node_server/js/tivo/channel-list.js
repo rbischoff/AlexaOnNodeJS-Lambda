@@ -1,7 +1,7 @@
 
 module.exports = {
 	"nickelodeon" : "132",
-	"nick" : "132",
+	"nick" : "61",
 	"nick junior" : "131",
 	"disney X D" : "135",
 	"nat geo" : "109",
