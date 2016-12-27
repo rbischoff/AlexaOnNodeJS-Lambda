@@ -172,9 +172,8 @@ function sendCommand(path,header,body,callback) {
 	header.iv = encrypted.iv;
 
     var ca = fs.readFileSync('ca/cert.pem', 'utf8');
-    console.log(ca);
     var opt = {
-        host: '192.168.0.105',
+        host: serverinfo.host,
         port:serverinfo.port,
         path: path,
         method: 'POST',
@@ -199,8 +198,6 @@ function sendCommand(path,header,body,callback) {
     req.end();
 }
 
-exports.sendCommand = sendCommand;
-// Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
     // Create an instance of the Tivo skill.
     var tivo = new Tivo();
