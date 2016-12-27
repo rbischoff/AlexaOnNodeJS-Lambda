@@ -1,6 +1,5 @@
 var telnet = require('telnet-client');
 var channels = require('./tivo/channel-list'); //loads the channels file in the same directory.
-var sonybravia = require('./js/sonybravia');
 var request = require('request');
 var express = require('express');
 var router = express.Router();
@@ -137,35 +136,3 @@ function sendtotivo(code, ResponseCallback) {
 }
 
 module.exports = router;
-
-/*
-        //sets the users power intent variable
-        
-        switch (powerintent) {
-            case "on": powerintent = 'active'; break;
-            case "off": powerintent = 'standby'; break;
-        }
-        console.log("User has requested that the TV turn " + powerintent);
-
-        //retrieves the Sony Bravia power status
-        var powerstatus = "";
-        sony.PowerStatus(function ResponseCallback(err, codeResponse) {
-
-            if (err) {
-                response.tell("I cannot do that right now. Please try again");
-            } else {
-                powerstatus = codeResponse;
-                console.log(codeResponse + " status has been retreived from function.");
-            
-                //if powerintent already matches the power status. does nothing. otherwise turns power on/off
-                if (powerintent == powerstatus) {
-                    response.tell("The TV is already " + powerintent);
-                } else {
-                    console.log("TV has been turned " + powerintent)
-                    sony.IRcodeRequest("AAAAAQAAAAEAAAAVAw==", function ResponseCallback(err, codeResponse) {            
-                    response.tell("I have switched the TV " + powerintent);
-                    });
-                }
-            }          
-        });    
-        */

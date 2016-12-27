@@ -1,15 +1,21 @@
-var AlexaSkill = require('js/AlexaSkill');
-var express = require('express');
-var request = require('request');
-var http = require('http');
-var serverinfo = require("js/serverinfo");
-var config = require('./config');
+const AlexaSkill = require('./js/AlexaSkill');
+const express = require('express');
+const request = require('request');
+const https = require('https');
+const xor = require('bitwise-xor');
+const fs = require('fs');
+
+const serverinfo = require('./js/serverinfo');
+const config = require('./config');
+const secure = require('./js/secure');
 
 var APP_ID = config.appid;
+
 
 var Tivo = function () {
     AlexaSkill.call(this, APP_ID);
 };
+
 
 // Extend AlexaSkill
 Tivo.prototype = Object.create(AlexaSkill.prototype);
@@ -158,16 +164,30 @@ Tivo.prototype.intentHandlers = {
 };
 
 function sendCommand(path,header,body,callback) {
+
+    // username & password hash is encrypted each time the function is called
+    var xored = xor(config.password, config.username);
+	var encrypted = secure.encrypt(xored);
+	header.phrase = encrypted.content;
+	header.iv = encrypted.iv;
+
+    var ca = fs.readFileSync('ca/cert.pem', 'utf8');
     var opt = {
-        host:serverinfo.host,
+        host: serverinfo.host,
         port:serverinfo.port,
         path: path,
         method: 'POST',
+        ca: [ca],
         headers: header,
+        checkServerIdentity: function (host, cert) {
+            return undefined;
+        }
     };
 
-    var req = http.request(opt, function(res) {
+    console.log('before request');
+    var req = https.request(opt, function(res) {
         res.setEncoding('utf8');
+        console.log('in request');
         res.on('data', function (chunk) {
             console.log('Response: ' + chunk);
             callback(chunk);
@@ -178,7 +198,6 @@ function sendCommand(path,header,body,callback) {
     req.end();
 }
 
-// Create the handler that responds to the Alexa Request.
 exports.handler = function (event, context) {
     // Create an instance of the Tivo skill.
     var tivo = new Tivo();
