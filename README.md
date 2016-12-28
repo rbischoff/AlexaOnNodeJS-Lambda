@@ -13,3 +13,6 @@ Again this code may or may not work, but gives you something to start with or un
 
 Node server to run the command node server.js
 
+### Attribution
+
+I forked this from jingsta.  Most of the code is his.  I just made some changes to make it work with my specific setup.  I also added encryption / authentication for the link between lambda and my home server.
